@@ -12,8 +12,6 @@ public class Main {
         products.put("Масло", 153);
         products.put("Колбаса", 211);
         products.put("Пирожок", 45);
-        // Изменяем Purchase, и задаём список продуктов через статический Purchase.setSizePurchases
-        Purchase.setSizePurchases(products.size());
 
         System.out.println("В МАГАЗИНЕ В НАЛИЧИИ");
         for (Map.Entry<String, Integer> productAndPrice : products.entrySet()) {
@@ -22,18 +20,16 @@ public class Main {
 
         System.out.println("Введите два слова: название товара и количество. Или end");
         Scanner scanner = new Scanner(System.in);
-
+        Basket purchases = new Basket(products);
         while (true) {
             String line = scanner.nextLine();
             if ("end".equals(line)) break;
             String[] parts = line.split(" ");
             String product = parts[0];
             int count = Integer.parseInt(parts[1]);
-            // Использую статический метод для добавления продукта
-            Purchase.addPurchase(product, count);
+            purchases.addPurchase(product, count);
         }
-        // Использую статический метод для подсчёта всей суммы
-        long sum = Purchase.sum(products);
+        long sum = purchases.sum(products);
         System.out.println("ИТОГО: " + sum);
     }
 }
